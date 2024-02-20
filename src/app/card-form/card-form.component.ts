@@ -10,9 +10,7 @@ import { DateFormControl } from '../date-form-control';
 export class CardFormComponent implements OnInit {
   cardForm = new FormGroup({
     name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(5),
+      Validators.required
       // Validators.pattern(/\s/) // แอดได้เฉพาะ space
     ]),
     cardNumber: new FormControl('', [
@@ -60,6 +58,7 @@ export class CardFormComponent implements OnInit {
   }
 
   onReset() {
+    /** reset() try to set all formControl to null */
     this.cardForm.reset();
   }
 }

@@ -1,9 +1,17 @@
 import { FormControl } from '@angular/forms';
 
 export class DateFormControl extends FormControl {
-  override setValue(value: string, options: any) {
-    console.log('this.value.length: ', this.value.length);
-    console.log(value.length);
+  /**
+   *
+   * @param value ที่ต้องเป็น string | null เพราะกรณีปุ่ม reset กดแล้วจะเรียก method form.reset() method reset() นั้นจะพยายาม ทำให้ทุด formControl มีค่าเป็น null ดังนั้นจึงต้องใส่ | null เพื่อไม่ให้เกิด error
+   * @param options
+   * @returns
+   */
+  override setValue(value: string | null, options: any) {
+    if (!value) {
+      super.setValue('', { ...options, emitModelToViewChange: true });
+      return;
+    }
 
     /** /[^0-9|\/]/gi คือ 1-9 กับ / */
     if (value.match(/[^0-9|\/]/gi)) {
